@@ -81,13 +81,3 @@ This project is released under the MIT License. Feel free to fork, modify, and i
 
 * [ESP32QRCodeReader](https://www.google.com/search?q=https://github.com/alvarowolf/ESP32QRCodeReader) library by alvarowolf.
 * MQTT support via [PubSubClient](https://pubsubclient.knolleary.net/).
-
-
-
-***
-
-### Recommendations for your GitHub repository:
-*   **Safety First:** Before uploading to GitHub, ensure you remove sensitive data (Wi-Fi SSID, Password, MQTT broker credentials) from the `main.cpp` file. You can replace them with placeholders (e.g., `"YOUR_SSID"`) or use a `secrets.h` file that you add to `.gitignore`.
-*   **Documentation:** If you want to make your project stand out, consider adding a wiring diagram in the `docs/` folder to show how to connect the relay to the ESP32-CAM.
-
-```
