@@ -69,6 +69,7 @@ action:
   - service: switch.turn_off
     target:
       entity_id: switch.rele_serratura
+mode: single
 
 ```
 
@@ -81,7 +82,7 @@ This project is released under the MIT License. Feel free to fork, modify, and i
 * [ESP32QRCodeReader](https://www.google.com/search?q=https://github.com/alvarowolf/ESP32QRCodeReader) library by alvarowolf.
 * MQTT support via [PubSubClient](https://pubsubclient.knolleary.net/).
 
-```
+
 
 ***
 

@@ -1,14 +1,12 @@
-alias: "Attiva Relè con QR Code Valido"
-description: "Confronta il codice letto dall'ESP32-CAM con l'helper e aziona il relè se corrispondono."
+alias: "Activate Relay with Valid QR Code"
 trigger:
   - platform: state
     entity_id: sensor.esp32cam_qr_scanned
 condition:
   - condition: template
     value_template: >-
-      {{ trigger.to_state.state != 'unavailable' and trigger.to_state.state !=
-      'unknown' and trigger.to_state.state ==
-      states('input_text.codice_qr_valido') }}
+      {{ trigger.to_state.state != 'unavailable' and trigger.to_state.state != 'unknown' 
+         and trigger.to_state.state == states('input_text.codice_qr_valido') }}
 action:
   - service: switch.turn_on
     target:
