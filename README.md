@@ -38,6 +38,8 @@ build_flags =
     -DCORE_DEBUG_LEVEL=3
     -DBOARD_HAS_PSRAM
     -mfix-esp32-psram-cache-issue
+    -DMQTT_MAX_PACKET_SIZE=512
+
 
 board_build.partitions = huge_app.csv
 
@@ -51,24 +53,27 @@ Go to *Settings > Devices & Services > Helpers > Create Helper > Text* and creat
 Add the following automation (YAML mode) to manage the comparison between the scanned code and the one saved in your Helper:
 
 ```yaml
-alias: "Activate Relay with Valid QR Code"
-trigger:
-  - platform: state
-    entity_id: sensor.esp32cam_qr_scanned
-condition:
+alias: Attiva Relè con QR Code Valido
+description: >-
+  Attiva il relè se il QR code corrisponde all'helper, anche in caso di letture
+  ripetute.
+triggers:
+  - topic: esp32cam/qrcode/text
+    trigger: mqtt
+conditions:
   - condition: template
-    value_template: >-
-      {{ trigger.to_state.state != 'unavailable' and trigger.to_state.state != 'unknown' 
-         and trigger.to_state.state == states('input_text.codice_qr_valido') }}
-action:
-  - service: switch.turn_on
-    target:
-      entity_id: switch.rele_serratura
+    value_template: |-
+      {{ trigger.payload != 'unavailable' and trigger.payload != 'unknown' 
+         and trigger.payload == states('input_text.codice_qr_valido') }}
+actions:
+  - target:
+      entity_id: switch.modulo_portone_serratura_porta
+    action: switch.turn_on
   - delay:
-      seconds: 5
-  - service: switch.turn_off
-    target:
-      entity_id: switch.rele_serratura
+      seconds: 1
+  - target:
+      entity_id: switch.modulo_portone_serratura_porta
+    action: switch.turn_off
 mode: single
 
 ```
